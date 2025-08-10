@@ -22,30 +22,26 @@
     --card: rgba(255,255,255,0.02);
     --glass: rgba(255,255,255,0.03);
     --gap:18px;
-    --radius:14px;
+    --radius:12px;
     --shadow-lg: 0 30px 80px rgba(0,0,0,0.6);
   }
 
-  /* reset */
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   body{
     font-family:"M PLUS Code Latin", monospace;
     -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
     background:
       radial-gradient(1000px 500px at 6% 6%, rgba(0,255,136,0.03), transparent),
       linear-gradient(180deg,var(--bg) 0%, #070707 100%);
     color:#e6ffe9;
     padding-bottom:60px;
     -webkit-text-size-adjust:100%;
-    text-rendering:optimizeLegibility;
   }
 
   a{color:inherit;text-decoration:none}
   .container{max-width:var(--max-w);margin:0 auto;padding:0 18px}
 
-  /* background animated blobs (subtle, low-poly feel) */
   .bg-visual{
     position:fixed;inset:0;z-index:0;pointer-events:none;mix-blend-mode:screen;opacity:0.06;
     background-image:
@@ -70,12 +66,42 @@
   .brand .title{font-weight:900;color:var(--neon);font-size:15px;line-height:1}
   .brand .tag{font-size:12px;color:var(--muted)}
 
-  /* desktop menu */
+  /* MENU (desktop + mobile fallback) */
   .menu{display:flex;gap:12px;align-items:center}
   .menu a{padding:8px 12px;border-radius:10px;font-weight:700;color:var(--muted)}
   .menu a:hover{color:var(--neon);transform:translateY(-3px);transition:transform .18s ease,color .12s}
 
-  /* hero */
+  /* menu button (mobile) */
+  .menu-btn{
+    display:none;
+    align-items:center;
+    gap:10px;
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.06);
+    padding:8px 10px;
+    border-radius:10px;
+    color:var(--muted);
+    cursor:pointer;
+    font-weight:700;
+    backdrop-filter: blur(4px);
+    transition:background .15s, transform .12s;
+  }
+  .menu-btn:active{transform:scale(.98)}
+  .menu-btn .bars{display:inline-block;width:26px;height:18px;position:relative}
+  .menu-btn .bars span{
+    position:absolute;left:0;right:0;height:2px;background:var(--muted);display:block;border-radius:2px;transition:transform .22s cubic-bezier(.2,.9,.3,1),opacity .18s,top .22s;
+  }
+  .menu-btn .bars span:nth-child(1){top:0}
+  .menu-btn .bars span:nth-child(2){top:8px}
+  .menu-btn .bars span:nth-child(3){top:16px}
+
+  /* when open -> animate into X */
+  .menu-btn.open .bars span:nth-child(1){top:8px;transform:rotate(45deg)}
+  .menu-btn.open .bars span:nth-child(2){opacity:0}
+  .menu-btn.open .bars span:nth-child(3){top:8px;transform:rotate(-45deg)}
+  .menu-btn .menu-label{font-size:13px;color:var(--muted)}
+
+  /* HERO */
   .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:start;padding:30px 0}
   .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(0,255,136,0.07), rgba(0,255,136,0.03));color:var(--neon);font-weight:800;font-size:12px;margin-bottom:12px;letter-spacing:0.6px}
   h1{font-size:2.2rem;line-height:1.02;margin-bottom:12px;background:linear-gradient(90deg,#bfffda,var(--neon));-webkit-background-clip:text;color:transparent}
@@ -88,17 +114,15 @@
   }
   .btn:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 20px 60px rgba(0,255,136,0.18)}
   .secondary{padding:12px 16px;border-radius:12px;background:var(--card);border:1px solid rgba(255,255,255,0.03);color:var(--muted);font-weight:700}
-
   .note{margin-top:10px;color:var(--muted);font-size:13px}
 
-  /* phone card */
-  .phone-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:20px;padding:14px;border:1px solid rgba(0,255,136,0.06);box-shadow:var(--shadow-lg);width:100%;max-width:420px;margin:auto;transform-origin:center;animation: cardPop .8s cubic-bezier(.2,.9,.3,1) both}
-  @keyframes cardPop{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+  /* PHONE CARD */
+  .phone-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:20px;padding:14px;border:1px solid rgba(0,255,136,0.06);box-shadow:var(--shadow-lg);width:100%;max-width:420px;margin:auto;animation: cardPop .8s cubic-bezier(.2,.9,.3,1) both}
   .phone-screens{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
   .phone-screens img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:12px;border:1px solid rgba(0,0,0,0.25);max-height:520px;display:block}
   .badge{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(0,0,0,0.28);color:var(--muted);display:inline-block;margin-top:8px}
 
-  /* slides / features */
+  /* SLIDES */
   .deck{margin-top:22px}
   .slide-wrap{position:relative;border-radius:12px;padding:14px;background:linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.12));border:1px solid rgba(0,255,136,0.04);overflow:hidden}
   .slides{display:flex;transition:transform .45s cubic-bezier(.2,.9,.3,1);will-change:transform;touch-action:pan-y}
@@ -108,33 +132,29 @@
   .slide p{color:var(--muted);line-height:1.5}
   .mock{width:240px;flex-shrink:0}
   .mock img{width:100%;height:auto;border-radius:12px;display:block}
-
   .controls{display:flex;gap:10px;justify-content:center;margin-top:14px}
   .dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid rgba(0,255,136,0.06);cursor:pointer}
   .dot.active{background:var(--neon);box-shadow:0 8px 20px rgba(0,255,136,0.16)}
 
-  /* logos row */
+  /* logos */
   .api-logos, .offline-logos{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
   .api-logos img, .offline-logos img{height:56px;max-width:220px;object-fit:contain;padding:8px;background:var(--glass);border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
 
-  /* gallery */
+  /* GALLERY */
   .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
   .card{border-radius:12px;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,0.02);cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
   .card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(0,0,0,0.6)}
   .card img{display:block;width:100%;height:auto}
 
-  /* footer */
-  footer{margin-top:28px;padding:28px 18px;text-align:center;color:rgba(255,255,255,0.6);font-size:13px}
-
-  /* lightbox */
+  /* LIGHTBOX & FOOTER */
   .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.88);z-index:90;padding:12px}
   .lightbox.open{display:flex}
   .lightbox img{max-width:100%;max-height:95%;border-radius:10px}
   .lightbox .close{position:absolute;top:18px;right:18px;padding:8px 10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--neon);font-weight:700}
+  footer{margin-top:28px;padding:28px 18px;text-align:center;color:rgba(255,255,255,0.6);font-size:13px}
 
-  /* subtle micro-animations */
-  .ripple {position:relative;overflow:hidden}
-  .ripple:after{content:"";position:absolute;border-radius:50%;transform:scale(0);opacity:0.25;background:radial-gradient(circle,rgba(255,255,255,0.25),transparent 40%);transition:transform .6s,opacity .9s}
+  /* ripple helper (CTA) */
+  .ripple{position:relative;overflow:hidden}
 
   /* responsive */
   @media (max-width:980px){
@@ -146,18 +166,20 @@
   @media (max-width:720px){
     .menu{display:none}
     .menu-btn{display:inline-flex}
+    .menu.open{display:flex}
+    .menu.open{position:fixed;top:64px;right:18px;flex-direction:column;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2));padding:12px;border-radius:10px;gap:10px;z-index:80}
+    .menu.open a{white-space:nowrap}
     .gallery{grid-template-columns:repeat(1,1fr)}
-    .card{min-height:160px}
     h1{font-size:1.5rem}
-    .phone-screens img{max-height:420px}
     .btn{width:100%}
     .cta-row{flex-direction:column;align-items:stretch}
     .mock{width:140px}
+    .dot{width:18px;height:18px}
+    .api-logos img, .offline-logos img{height:46px;max-width:140px}
   }
 
-  /* reduced motion */
   @media (prefers-reduced-motion: reduce){
-    .logo, .bg-visual, .slides, .tile, .phone-card { animation: none !important; transition: none !important }
+    .logo, .bg-visual, .slides, .phone-card { animation: none !important; transition: none !important }
   }
 </style>
 </head>
@@ -177,12 +199,18 @@
       </div>
 
       <div style="display:flex;gap:8px;align-items:center">
-        <nav class="menu" aria-label="links">
+        <!-- desktop menu -->
+        <nav class="menu" id="menuList" aria-label="links de navegação">
           <a href="#features">Recursos</a>
           <a href="#screens">Telas</a>
           <a href="#download">Download</a>
         </nav>
-        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menuList">Menu</button>
+
+        <!-- menu button (mobile) -->
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menuList" aria-label="Abrir menu">
+          <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="menu-label">Menu</span>
+        </button>
       </div>
     </div>
   </header>
@@ -223,7 +251,6 @@
       </aside>
     </section>
 
-    <!-- features slides -->
     <section class="deck" id="features" aria-label="Recursos">
       <div class="slide-wrap" role="region" aria-roledescription="carousel" aria-label="Principais recursos">
         <div class="slides" id="slides" aria-live="polite">
@@ -250,7 +277,7 @@
           <div class="slide" aria-label="Modo offline">
             <div class="text">
               <h3>Modo offline & imagens</h3>
-              <p>Dados essenciais ficam em cache para permitir uso em campo sem conexão. As imagens em alta resoluçāo ajudam na identificação das espécies.</p>
+              <p>Dados essenciais ficam em cache para permitir uso em campo sem conexão. As imagens em alta resolução ajudam na identificação das espécies.</p>
               <div class="offline-logos" aria-hidden="true">
                 <img src="https://cdn-icons-png.flaticon.com/256/10254/10254279.png" alt="Ícone cache">
                 <img src="https://static.vecteezy.com/system/resources/thumbnails/027/374/615/small/digital-health-logo-png.png" alt="Ícone saúde digital">
@@ -268,7 +295,6 @@
       </div>
     </section>
 
-    <!-- gallery -->
     <section id="screens" class="gallery" aria-label="Screenshots">
       <div class="card" tabindex="0" data-src="https://i.imgur.com/k07tuLF.png"><img src="https://i.imgur.com/k07tuLF.png" alt="Screenshot 1" loading="lazy"></div>
       <div class="card" tabindex="0" data-src="https://i.imgur.com/RU4nmEG.png"><img src="https://i.imgur.com/RU4nmEG.png" alt="Screenshot 2" loading="lazy"></div>
@@ -276,7 +302,6 @@
     </section>
   </main>
 
-  <!-- lightbox -->
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
     <button class="close" id="lb-close" aria-label="Fechar">Fechar</button>
     <img id="lb-img" src="" alt="Visualização">
@@ -291,10 +316,10 @@
   </footer>
 
 <script>
-/* ========== UTIL / RESPECT REDUCED MOTION ========== */
+/* reduced motion */
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ========== TYPED HEADLINE (subtle) ========== */
+/* typed headline */
 (function typed(){
   if(reduceMotion) return;
   const el = document.getElementById('typed-title');
@@ -313,7 +338,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   step();
 })();
 
-/* ========== SLIDES (dots + autoplay + swipe) ========== */
+/* slides */
 (function slides(){
   const slidesEl = document.getElementById('slides');
   const dots = Array.from(document.querySelectorAll('.dot'));
@@ -329,12 +354,11 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     slidesEl.addEventListener('mouseenter', ()=> clearInterval(autoplay));
     slidesEl.addEventListener('mouseleave', ()=> autoplay = setInterval(()=> go(idx+1), 5200));
   }
-
-  // swipe support
-  let startX = 0, endX = 0;
-  slidesEl.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-  slidesEl.addEventListener('touchmove', e => endX = e.touches[0].clientX);
-  slidesEl.addEventListener('touchend', () => {
+  // swipe
+  let startX=0,endX=0;
+  slidesEl.addEventListener('touchstart', e=> startX = e.touches[0].clientX);
+  slidesEl.addEventListener('touchmove', e=> endX = e.touches[0].clientX);
+  slidesEl.addEventListener('touchend', ()=> {
     const diff = endX - startX;
     if(Math.abs(diff) > 40){
       if(diff < 0) go(idx+1); else go(idx-1);
@@ -343,13 +367,12 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   });
 })();
 
-/* ========== GALLERY LIGHTBOX ========== */
+/* gallery lightbox */
 (function gallery(){
   const cards = document.querySelectorAll('.card');
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lb-img');
   const close = document.getElementById('lb-close');
-
   function open(src, alt){
     lbImg.src = src; lbImg.alt = alt || 'Preview';
     lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
@@ -368,7 +391,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLB(); });
 })();
 
-/* ========== TILT / PARALLAX on hover (light) ========== */
+/* tilt effect */
 (function tilt(){
   if(reduceMotion) return;
   const imgs = document.querySelectorAll('.mock img, .phone-screens img, .card img');
@@ -385,22 +408,35 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   });
 })();
 
-/* ========== MENU TOGGLE (mobile) ========== */
-(function menu(){
+/* menu toggle (with animated bars -> X) */
+(function menuToggle(){
   const btn = document.getElementById('menuBtn');
-  const menu = document.querySelector('.menu');
-  if(!btn) return;
-  btn.addEventListener('click', ()=>{
-    const open = menu.style.display !== 'flex';
-    menu.style.display = open ? 'flex' : 'none';
-    btn.textContent = open ? 'Fechar' : 'Menu';
+  const menu = document.getElementById('menuList');
+  if(!btn || !menu) return;
+
+  function setOpen(open){
+    btn.classList.toggle('open', open);
+    menu.classList.toggle('open', open);
     btn.setAttribute('aria-expanded', String(open));
+    btn.querySelector('.menu-label').textContent = open ? 'Fechar' : 'Menu';
+    if(open) menu.querySelectorAll('a')[0]?.focus();
+  }
+
+  btn.addEventListener('click', ()=>{
+    const open = !menu.classList.contains('open');
+    setOpen(open);
   });
+
+  // close menu when link clicked (mobile)
+  menu.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click', ()=> setOpen(false));
+  });
+
   // ensure menu visible on resize when desktop
-  window.addEventListener('resize', ()=> { if(window.innerWidth > 720) menu.style.display = 'flex' });
+  window.addEventListener('resize', ()=> { if(window.innerWidth > 720){ menu.style.display = 'flex'; menu.classList.remove('open'); btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); btn.querySelector('.menu-label').textContent = 'Menu'; } else { if(!menu.classList.contains('open')) menu.style.display = ''; } });
 })();
 
-/* ========== RIPPLE FEEDBACK on CTA ========== */
+/* ripple CTA */
 (function ripple(){
   const btn = document.querySelector('.btn.ripple');
   if(!btn) return;
@@ -408,7 +444,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     const rect = btn.getBoundingClientRect();
     const d = Math.max(rect.width, rect.height);
     const circle = document.createElement('span');
-    circle.style.position = 'absolute';
+    circle.style.position='absolute';
     circle.style.width = circle.style.height = d + 'px';
     circle.style.left = (e.clientX - rect.left - d/2) + 'px';
     circle.style.top = (e.clientY - rect.top - d/2) + 'px';
@@ -424,7 +460,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   });
 })();
 
-/* ========== CONFETTI ON DOWNLOAD (light) ========== */
+/* confetti on download (light) */
 (function confetti(){
   const dl = document.getElementById('download');
   if(!dl || reduceMotion) return;
@@ -452,7 +488,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   });
 })();
 
-/* ========== ACCESSIBILITY niceties ========== */
+/* accessibility niceties */
 document.addEventListener('keyup', e => { if(e.key==='Tab') document.documentElement.style.scrollBehavior='smooth' });
 </script>
 </body>
