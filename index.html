@@ -5,191 +5,183 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Plantafix — Lançamento Android</title>
 
-  <!-- Favicon / ícone da aba -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="64x64" href="https://i.imgur.com/FaE5KKv.png">
   <link rel="apple-touch-icon" href="https://i.imgur.com/FaE5KKv.png">
   <meta name="theme-color" content="#000000">
 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@400;700;900&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg1:#000;
+      --max-width:1100px;
+      --bg: #050505;
       --neon:#00ff88;
-      --neon-2:#00d67a;
+      --neon-dark:#00d67a;
       --muted:#9beac3;
       --card: rgba(255,255,255,0.02);
       --glass: rgba(255,255,255,0.03);
-      --max-width:1100px;
+      --gap:16px;
     }
+
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%}
     body{
-      font-family: 'M PLUS Code Latin', monospace;
+      font-family:'M PLUS Code Latin', monospace;
       background:
         radial-gradient(1200px 600px at 10% 10%, rgba(0,255,136,0.04), transparent),
-        linear-gradient(180deg,#050505 0%, #0a0a0a 100%);
+        linear-gradient(180deg,var(--bg) 0%, #0a0a0a 100%);
       color:#e6ffe9;
       -webkit-font-smoothing:antialiased;
-      overflow-x:hidden;
-      padding-bottom:60px;
+      -moz-osx-font-smoothing:grayscale;
+      -webkit-text-size-adjust:100%;
+      padding-bottom:48px;
     }
-    a{color:inherit}
-    .container{max-width:var(--max-width);margin:0 auto;padding:0 18px}
-    .bg-lines{position:fixed;inset:0;pointer-events:none;z-index:0;mix-blend-mode:screen;opacity:0.06;
-      background-image:
-        linear-gradient(90deg, rgba(0,255,136,0.06) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(0,255,136,0.04) 1px, transparent 1px);
-      background-size: 160px 160px, 160px 160px;
-      animation: pan 60s linear infinite;}
-    @keyframes pan{from{transform:translateY(0)} to{transform:translateY(-200px)}}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 16px}
 
-    header{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,rgba(0,0,0,0.45),transparent);backdrop-filter:blur(4px)}
-    .nav{display:flex;gap:12px;align-items:center;justify-content:space-between;max-width:var(--max-width);margin:0 auto;padding:18px 10px}
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:64px;height:64px;border-radius:12px;overflow:hidden;display:inline-grid;place-items:center;
-      background:linear-gradient(135deg, rgba(0,0,0,0.25), rgba(255,255,255,0.02));
-      box-shadow:0 6px 30px rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.08);
-      transform:translateZ(0);animation: logoFloat 4s ease-in-out infinite;}
-    .logo img{display:block;width:100%;height:100%;object-fit:cover}
-    @keyframes logoFloat{0%{transform:translateY(0) rotate(-1deg) scale(1)}50%{transform:translateY(-6px) rotate(1deg) scale(1.02)}100%{transform:translateY(0) rotate(-1deg) scale(1)}}
-
-    nav a{color:var(--muted);text-decoration:none;font-weight:700;padding:8px 12px;border-radius:999px}
-    nav a:hover{color:var(--neon);transform:translateY(-2px)}
-
-    .hero{max-width:var(--max-width);margin:28px auto 36px;display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:20px}
-    .hero-left{text-align:left}
-    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(0,255,136,0.07), rgba(0,255,136,0.03));color:var(--neon);font-weight:700;font-size:13px;margin-bottom:14px}
-    h1{font-size:2.2rem;line-height:1.02;margin-bottom:12px;background: linear-gradient(90deg, #bfffda, var(--neon));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.5px;animation: revealUp 0.7s ease both}
-    @keyframes revealUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    .sub{color:#bfeee0;margin-bottom:18px;font-size:1rem;max-width:680px;opacity:0.95;animation: fadeIn 1s ease 0.2s both}
-    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-    .cta-row{display:flex;gap:14px;align-items:center;margin-top:18px}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border-radius:12px;font-weight:800;background:linear-gradient(90deg,var(--neon),var(--neon-2));color:#00110a;border:none;cursor:pointer;text-decoration:none;box-shadow:0 10px 30px rgba(0,255,136,0.12)}
-    .btn:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 18px 50px rgba(0,255,136,0.18)}
-    .secondary{padding:12px 16px;border-radius:12px;background:var(--card);border:1px solid rgba(255,255,255,0.03);color:var(--muted)}
-
-    .hero-right{display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center}
-    .phone-card{width:100%;max-width:420px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:22px;padding:14px;border:1px solid rgba(0,255,136,0.06);box-shadow:0 30px 80px rgba(0,0,0,0.6);transform-origin:center;animation: cardPop .8s cubic-bezier(.2,.9,.3,1) both}
-    @keyframes cardPop{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-
-    .phone-screens{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-    .phone-screens img, .mock img {
-      width:100%;
-      aspect-ratio: 9 / 16;
-      height: auto;
-      max-height: 520px;
-      object-fit: cover;
-      border-radius:12px;
-      border:1px solid rgba(0,0,0,0.25);
-      box-shadow:0 8px 30px rgba(0,0,0,0.6);
-      display:block;
+    /* header / nav */
+    header{
+      position:sticky;top:0;z-index:40;
+      background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.12));
+      backdrop-filter: blur(6px);
     }
-    .phone-screens img[style] { max-height:620px; }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;max-width:var(--max-width);margin:0 auto}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:10px;overflow:hidden;display:inline-grid;place-items:center;border:1px solid rgba(0,255,136,0.08);background:linear-gradient(135deg, rgba(0,0,0,0.2), rgba(255,255,255,0.01))}
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
+    .brand .title{font-weight:900;color:var(--neon);font-size:15px;line-height:1}
+    .brand .tag{font-size:12px;color:var(--muted)}
 
-    .badge{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(0,0,0,0.3);color:var(--muted);display:inline-block;margin-top:8px}
+    /* mobile menu */
+    .menu-btn{display:none;background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px;border-radius:10px;color:var(--muted)}
+    .menu{display:flex;gap:12px;align-items:center}
+    .menu a{padding:8px 10px;border-radius:10px;font-weight:700;color:var(--muted)}
+    .menu a:hover{color:var(--neon)}
 
-    .deck{max-width:var(--max-width);margin:30px auto 0;padding:18px;display:flex;flex-direction:column;gap:18px}
-    .slide-wrap{position:relative;overflow:hidden;border-radius:14px;border:1px solid rgba(0,255,136,0.04);background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.22));padding:18px}
-    .slides{display:flex;gap:14px;transition:transform .6s cubic-bezier(.2,.9,.3,1);will-change:transform}
-    .slide{min-width:100%;flex:0 0 100%;display:flex;gap:18px;align-items:center}
+    /* hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:start;padding:22px 0}
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(0,255,136,0.07), rgba(0,255,136,0.03));color:var(--neon);font-weight:700;font-size:12px;margin-bottom:12px}
+    h1{font-size:2.1rem;line-height:1.02;margin-bottom:10px;background:linear-gradient(90deg,#bfffda,var(--neon));-webkit-background-clip:text;color:transparent}
+    .sub{color:var(--muted);margin-bottom:14px;line-height:1.45}
+
+    .cta-row{display:flex;gap:12px;align-items:center}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 18px;border-radius:12px;font-weight:900;background:linear-gradient(90deg,var(--neon),var(--neon-dark));color:#00110a;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(0,255,136,0.12)
+    }
+    .secondary{padding:12px 16px;border-radius:12px;background:var(--card);border:1px solid rgba(255,255,255,0.03);color:var(--muted);font-weight:700}
+
+    /* phone card */
+    .phone-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;padding:12px;border:1px solid rgba(0,255,136,0.06);box-shadow:0 30px 80px rgba(0,0,0,0.6);width:100%;max-width:420px;margin:auto}
+    .phone-screens{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+    .phone-screens img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:12px;border:1px solid rgba(0,0,0,0.25);max-height:520px}
+
+    /* slides deck */
+    .deck{margin-top:18px}
+    .slide-wrap{position:relative;border-radius:12px;padding:12px;background:linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.12));border:1px solid rgba(0,255,136,0.04)}
+    .slides{display:flex;transition:transform .45s cubic-bezier(.2,.9,.3,1);will-change:transform;touch-action:pan-y}
+    .slide{min-width:100%;display:flex;gap:16px;align-items:center;padding:8px}
     .slide .text{flex:1}
-    .slide h3{font-size:1.2rem;margin-bottom:8px}
-    .slide p{color:var(--muted);line-height:1.45}
-    .slide .mock{width:260px;border-radius:12px;overflow:hidden;border:1px solid rgba(0,255,136,0.05);box-shadow:0 14px 40px rgba(0,0,0,0.6)}
+    .slide h3{font-size:1.05rem;margin-bottom:6px}
+    .slide p{color:var(--muted);line-height:1.5}
+    .mock{width:220px}
+    .mock img{width:100%;height:auto;border-radius:10px}
+
     .controls{display:flex;gap:8px;justify-content:center;margin-top:12px}
-    .dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid rgba(0,255,136,0.06);cursor:pointer}
-    .dot.active{background:var(--neon);box-shadow:0 6px 18px rgba(0,255,136,0.18)}
+    .dot{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid rgba(0,255,136,0.06);cursor:pointer;transition:transform .12s}
+    .dot.active{background:var(--neon);box-shadow:0 8px 20px rgba(0,255,136,0.16);transform:scale(1.06)}
 
-    /* logos rows */
-    .api-logos, .offline-logos {
-      display:flex;
-      gap:16px;
-      align-items:center;
-      justify-content:flex-start;
-      margin-top:14px;
-      flex-wrap:wrap;
-    }
-    .api-logos img, .offline-logos img {
-      max-width:220px;
-      height:56px;
-      object-fit:contain;
-      background:var(--glass);
-      padding:8px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.02);
-      box-shadow:0 8px 30px rgba(0,0,0,0.6);
-    }
-    .offline-logos img { height:72px; max-width:160px; }
+    /* logos row */
+    .api-logos, .offline-logos{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+    .api-logos img, .offline-logos img{height:52px;max-width:180px;object-fit:contain;padding:6px;background:var(--glass);border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
 
-    .gallery{max-width:var(--max-width);margin:32px auto;padding:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{border-radius:12px;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,0.02);cursor:pointer;transform:translateY(0);transition:transform .25s ease,box-shadow .25s ease}
-    .card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(0,0,0,0.6)}
-    .card img{width:100%;height:auto;display:block}
+    /* gallery */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+    .card{border-radius:12px;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+    .card img{display:block;width:100%;height:auto}
 
-    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);z-index:60}
+    /* lightbox */
+    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);z-index:70;padding:20px}
     .lightbox.open{display:flex}
-    .lightbox img{max-width:95%;max-height:85%;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,0.8)}
-    .lightbox .close{position:absolute;top:28px;right:28px;background:transparent;border:2px solid rgba(255,255,255,0.06);color:var(--neon);padding:8px 10px;border-radius:10px;cursor:pointer}
+    .lightbox img{max-width:100%;max-height:95%;border-radius:10px}
+    .lightbox .close{position:absolute;top:18px;right:18px;padding:10px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--neon);font-weight:700}
 
-    footer{margin-top:48px;padding:40px 20px;text-align:center;color:rgba(255,255,255,0.6);font-size:14px}
-    .meta{opacity:0.8}
+    footer{margin-top:28px;padding:28px 16px;text-align:center;color:rgba(255,255,255,0.6);font-size:13px}
 
-    /* small screens */
-    @media (max-width:980px){
-      .hero{grid-template-columns:1fr;gap:18px;padding:12px}
-      .phone-screens{grid-template-columns:repeat(2,1fr)}
+    /* responsive tweaks for mobile (phones) */
+    @media (max-width:720px){
+      .menu{display:none}
+      .menu-btn{display:inline-flex}
+      .hero{grid-template-columns:1fr;gap:16px;padding-bottom:6px}
+      h1{font-size:1.6rem}
+      .phone-card{max-width:360px}
+      .phone-screens{grid-template-columns:repeat(2,1fr);gap:8px}
+      .phone-screens img{max-height:420px}
+      .btn{width:100%;padding:14px;border-radius:12px;font-size:16px}
+      .cta-row{flex-direction:column;align-items:stretch}
+      .secondary{width:100%;text-align:center}
       .gallery{grid-template-columns:repeat(1,1fr)}
-      .api-logos img, .offline-logos img { max-width:140px; height:48px }
+      .mock{width:140px}
+      .slide{flex-direction:column;align-items:flex-start}
+      .controls{gap:10px}
+      .dot{width:18px;height:18px}
+      .api-logos img, .offline-logos img{height:46px;max-width:140px}
     }
 
-    .api-logos img:hover, .offline-logos img:hover { transform:translateY(-4px) scale(1.02); box-shadow:0 20px 50px rgba(0,255,136,0.12); transition: .18s ease; }
+    /* even smaller phones */
+    @media (max-width:420px){
+      .logo{width:48px;height:48px}
+      .kicker{font-size:11px}
+      h1{font-size:1.4rem}
+      .sub{font-size:14px}
+      .mock{width:120px}
+      .phone-screens img{max-height:360px}
+    }
   </style>
 </head>
 <body>
-  <div class="bg-lines"></div>
-
   <header>
     <div class="nav container">
       <div class="brand">
-        <div class="logo" title="Plantafix logo">
-          <img src="https://i.imgur.com/FaE5KKv.png" alt="Plantafix logo" loading="lazy">
-        </div>
-        <div style="line-height:1">
-          <div style="font-weight:900;font-size:16px;color:var(--neon)">Plantafix</div>
-          <div style="font-size:12px;color:var(--muted)">App Android • Pesquisa de plantas medicinais</div>
+        <div class="logo"><img src="https://i.imgur.com/FaE5KKv.png" alt="Plantafix logo" loading="lazy"></div>
+        <div>
+          <div class="title">Plantafix</div>
+          <div class="tag">App Android • Plantas medicinais</div>
         </div>
       </div>
 
-      <nav>
-        <a href="#features">Recursos</a>
-        <a href="#screens">Telas</a>
-        <a href="#download">Download</a>
-      </nav>
+      <div style="display:flex;gap:8px;align-items:center">
+        <nav class="menu" aria-label="menu">
+          <a href="#features">Recursos</a>
+          <a href="#screens">Telas</a>
+          <a href="#download">Download</a>
+        </nav>
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">Menu</button>
+      </div>
     </div>
   </header>
 
   <main class="container">
-    <section class="hero" role="region" aria-label="Lançamento Plantafix">
-      <div class="hero-left">
+    <section class="hero" aria-label="Lançamento Plantafix">
+      <div>
         <div class="kicker">LANÇAMENTO OFICIAL</div>
         <h1 id="typed-title">Plantafix — plantas medicinais no seu bolso</h1>
         <p class="sub">Busca por doenças, descrição das plantas, artigos científicos traduzidos e imagens. Offline friendly, leve e pensado pra campo.</p>
 
-        <div class="cta-row">
+        <div class="cta-row" style="margin-top:8px">
           <a id="download" class="btn" href="plantafix.apk" download>Baixar APK — Plantafix</a>
           <a class="secondary" href="#screens">Ver telas</a>
         </div>
 
-        <div style="margin-top:18px;color:var(--muted);font-size:13px">Dica: habilite "Instalar apps de fontes desconhecidas" no Android</div>
+        <div style="margin-top:12px;color:var(--muted);font-size:13px">Dica: habilite "Instalar apps de fontes desconhecidas" no Android</div>
       </div>
 
-      <div class="hero-right">
+      <aside style="display:flex;align-items:flex-start;justify-content:center">
         <div class="phone-card" aria-hidden="true">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div style="font-size:13px;color:var(--muted)">v1.0 • apk</div>
-            <div style="font-size:13px;color:var(--muted)">Offline ready</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)">
+            <div>v1.0 • apk</div>
+            <div>Offline ready</div>
           </div>
 
           <div class="phone-screens" style="margin-top:12px">
@@ -203,56 +195,50 @@
             <div class="badge">Tradução automática</div>
           </div>
         </div>
-
-        <div style="font-size:12px;color:var(--muted);margin-top:8px">Deploy via GitHub Pages — coloque esse index + plantafix.apk na raiz</div>
-      </div>
+      </aside>
     </section>
 
-    <!-- presentation deck / slides -->
+    <!-- slides / features -->
     <section class="deck" id="features" aria-label="Recursos">
       <div class="slide-wrap">
         <div class="slides" id="slides">
-          <div class="slide">
+          <div class="slide" aria-label="slide 1">
             <div class="text">
               <h3>Busca por sintomas e doenças</h3>
-              <p id="disease-text">Digite o sintoma ou nome da doença e receba instantaneamente sugestões de plantas medicinais, acompanhadas de descrições detalhadas, propriedades terapêuticas e referências científicas confiáveis para aprofundar seu conhecimento.</p>
+              <p>Digite o sintoma ou nome da doença e receba instantaneamente sugestões de plantas medicinais, acompanhadas de descrições detalhadas, propriedades terapêuticas e referências científicas confiáveis.</p>
             </div>
             <div class="mock"><img src="https://i.imgur.com/k07tuLF.png" alt="mock 1" loading="lazy"></div>
           </div>
 
-          <div class="slide">
+          <div class="slide" aria-label="slide 2">
             <div class="text">
               <h3>Artigos traduzidos</h3>
-              <p id="translate-text">Integração avançada com APIs de tradução que processam e adaptam resumos científicos automaticamente, transformando conteúdo técnico complexo em informações claras e acessíveis, sem perder a precisão original dos dados.</p>
-
-              <!-- logos lado a lado: Google Translate + PubMed -->
+              <p>Integração avançada com APIs de tradução que processam e adaptam resumos científicos automaticamente, transformando conteúdo técnico complexo em informações claras e acessíveis.</p>
               <div class="api-logos" aria-hidden="true">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Google_Translate_logo.svg/768px-Google_Translate_logo.svg.png" alt="Google Translate logo" loading="lazy">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/US-NLM-PubMed-Logo.svg/1200px-US-NLM-PubMed-Logo.svg.png" alt="PubMed logo" loading="lazy">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Google_Translate_logo.svg/768px-Google_Translate_logo.svg.png" alt="Google Translate" loading="lazy">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/US-NLM-PubMed-Logo.svg/1200px-US-NLM-PubMed-Logo.svg.png" alt="PubMed" loading="lazy">
               </div>
             </div>
             <div class="mock"><img src="https://i.imgur.com/RU4nmEG.png" alt="mock 2" loading="lazy"></div>
           </div>
 
-          <div class="slide">
+          <div class="slide" aria-label="slide 3">
             <div class="text">
               <h3>Modo offline & imagens</h3>
-              <p id="offline-text">Dados essenciais ficam salvos em cache, garantindo acesso rápido às informações mais importantes mesmo quando você estiver offline. As imagens de alta qualidade ajudam a identificar plantas de forma precisa, permitindo que você continue explorando e reconhecendo espécies mesmo sem conexão com a internet.</p>
-
-              <!-- ícones side-by-side -->
+              <p>Dados essenciais ficam salvos em cache, garantindo acesso rápido às informações mais importantes mesmo quando você estiver offline. As imagens de alta qualidade ajudam a identificar plantas de forma precisa.</p>
               <div class="offline-logos" aria-hidden="true">
-                <img src="https://cdn-icons-png.flaticon.com/256/10254/10254279.png" alt="icone cache/disco" loading="lazy">
-                <img src="https://static.vecteezy.com/system/resources/thumbnails/027/374/615/small/digital-health-logo-png.png" alt="icone digital health" loading="lazy">
+                <img src="https://cdn-icons-png.flaticon.com/256/10254/10254279.png" alt="cache icon" loading="lazy">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/027/374/615/small/digital-health-logo-png.png" alt="health icon" loading="lazy">
               </div>
             </div>
             <div class="mock"><img src="https://i.imgur.com/NDHYlPd.png" alt="mock 3" loading="lazy"></div>
           </div>
         </div>
 
-        <div class="controls" style="margin-top:14px">
-          <div class="dot active" data-i="0"></div>
-          <div class="dot" data-i="1"></div>
-          <div class="dot" data-i="2"></div>
+        <div class="controls" id="dots">
+          <div class="dot active" data-i="0" aria-label="slide 1"></div>
+          <div class="dot" data-i="1" aria-label="slide 2"></div>
+          <div class="dot" data-i="2" aria-label="slide 3"></div>
         </div>
       </div>
     </section>
@@ -272,154 +258,151 @@
   </div>
 
   <footer class="container">
-    <div style="display:flex;gap:16px;justify-content:center;align-items:center;margin-bottom:10px">
-      <a class="secondary" href="https://github.com/Str44ng33/plantafix-android" target="_blank" rel="noopener">Repositório no GitHub</a>
+    <div style="display:flex;gap:12px;justify-content:center;margin-bottom:10px">
+      <a class="secondary" href="https://github.com/Str44ng33/plantafix-android" target="_blank" rel="noopener">Repositório</a>
       <a class="secondary" href="https://github.com/Str44ng33/plantafix-android/releases" target="_blank" rel="noopener">Releases</a>
     </div>
-    <div class="meta">© 2025 Plantafix • Desenvolvido por Str44ng33 — Baixe o APK e compartilhe.</div>
+    <div style="color:rgba(255,255,255,0.6)">© 2025 Plantafix — Desenvolvido por Str44ng33</div>
   </footer>
 
-  <script>
-    /* typed headline */
-    (function typed(){
-      const el = document.getElementById('typed-title');
-      const full = 'Plantafix — plantas medicinais no seu bolso';
-      el.textContent = '';
-      let i=0;
-      function step(){
-        if(i<=full.length){
-          el.textContent = full.slice(0,i);
-          i++;
-          setTimeout(step, 26 + Math.random()*20);
-        } else {
-          setTimeout(()=>{i=0;step()}, 4000);
-        }
-      }
-      step();
-    })();
+<script>
+/* typed headline */
+(function typed(){
+  const el = document.getElementById('typed-title');
+  const full = 'Plantafix — plantas medicinais no seu bolso';
+  el.textContent = '';
+  let i=0;
+  function step(){
+    if(i<=full.length){
+      el.textContent = full.slice(0,i);
+      i++;
+      setTimeout(step, 26 + Math.random()*20);
+    } else {
+      setTimeout(()=>{i=0;step()}, 4000);
+    }
+  }
+  step();
+})();
 
-    /* slides */
-    (function slidesInit(){
-      const slides = document.getElementById('slides');
-      const dots = Array.from(document.querySelectorAll('.dot'));
-      let idx = 0, total = slides.children.length;
-      function go(n){
-        idx = (n+total)%total;
-        slides.style.transform = `translateX(-${idx*100}%)`;
-        dots.forEach(d=>d.classList.remove('active'));
-        dots[idx].classList.add('active');
-      }
-      dots.forEach(d=>d.addEventListener('click',()=>{go(Number(d.dataset.i))}));
-      let t = setInterval(()=>go(idx+1), 4500);
-      slides.addEventListener('mouseenter', ()=> clearInterval(t));
-      slides.addEventListener('mouseleave', ()=> t=setInterval(()=>go(idx+1),4500));
-    })();
+/* mobile menu toggle */
+(function menuToggle(){
+  const btn = document.getElementById('menuBtn');
+  const menu = document.querySelector('.menu');
+  if(!btn) return;
+  btn.addEventListener('click', ()=>{
+    if(menu.style.display === 'flex'){ menu.style.display = 'none'; btn.textContent = 'Menu' }
+    else { menu.style.display = 'flex'; btn.textContent = 'Fechar' }
+  });
+})();
 
-    /* gallery lightbox */
-    (function gallery(){
-      const cards = document.querySelectorAll('.card');
-      const lb = document.getElementById('lightbox');
-      const lbImg = document.getElementById('lb-img');
-      const close = document.getElementById('lb-close');
-      function open(src,alt){
-        lbImg.src = src; lbImg.alt = alt||'Preview';
-        lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
-        document.body.style.overflow='hidden';
-      }
-      function closeLB(){
-        lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
-        document.body.style.overflow='';
-        lbImg.src='';
-      }
-      cards.forEach(c=>{
-        c.addEventListener('click', ()=> open(c.dataset.src, c.querySelector('img').alt));
-        c.addEventListener('keypress', (e)=>{ if(e.key==='Enter') open(c.dataset.src, c.querySelector('img').alt) });
-      });
-      close.addEventListener('click', closeLB);
-      lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLB(); });
-      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeLB(); });
-    })();
+/* slides + dots + swipe */
+(function slides(){
+  const slidesEl = document.getElementById('slides');
+  const dots = Array.from(document.querySelectorAll('.dot'));
+  let idx = 0, total = slidesEl.children.length;
 
-    /* tilt */
-    (function tilt(){
-      const imgs = document.querySelectorAll('.mock img, .phone-screens img');
-      imgs.forEach(img=>{
-        img.style.transition='transform .2s ease, box-shadow .2s ease';
-        img.addEventListener('mousemove', (ev)=>{
-          const rect = img.getBoundingClientRect();
-          const x = (ev.clientX - rect.left) / rect.width - 0.5;
-          const y = (ev.clientY - rect.top) / rect.height - 0.5;
-          img.style.transform = `perspective(700px) rotateX(${ -y*6 }deg) rotateY(${ x*6 }deg) translateZ(6px)`;
-          img.style.boxShadow = `${ -x*12 }px ${ y*12 }px 40px rgba(0,0,0,0.6)`;
-        });
-        img.addEventListener('mouseleave', ()=>{ img.style.transform='none'; img.style.boxShadow=''; });
-      });
-    })();
+  function go(n){
+    idx = (n + total) % total;
+    slidesEl.style.transform = `translateX(-${idx*100}%)`;
+    dots.forEach(d => d.classList.toggle('active', Number(d.dataset.i) === idx));
+  }
 
-    /* reveal on scroll */
-    (function revealOnScroll(){
-      const observer = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            entry.target.style.transition = 'opacity .6s ease, transform .6s cubic-bezier(.2,.9,.3,1)';
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {threshold:.15});
-      document.querySelectorAll('.card, .slide, .phone-card').forEach((el,i)=>{
-        el.style.opacity = 0; el.style.transform = 'translateY(18px)';
-        observer.observe(el);
-      });
-    })();
+  dots.forEach(d => d.addEventListener('click', ()=> go(Number(d.dataset.i))));
 
-    /* confetti on download */
-    (function confettiOnDownload(){
-      const dl = document.querySelector('a[href="plantafix.apk"]');
-      if(!dl) return;
-      dl.addEventListener('click', (e)=>{
-        const c = document.createElement('canvas');
-        c.style.position='fixed'; c.style.left=0; c.style.top=0; c.style.zIndex=9999;
-        c.width = innerWidth; c.height = innerHeight;
-        document.body.appendChild(c);
-        const ctx = c.getContext('2d');
-        const pieces = [];
-        for(let i=0;i<80;i++){
-          pieces.push({
-            x: innerWidth/2 + (Math.random()-0.5)*200,
-            y: innerHeight/2 + (Math.random()-0.5)*80,
-            vx: (Math.random()-0.5)*6,
-            vy: -6 - Math.random()*6,
-            r: 4 + Math.random()*6,
-            c: ['#00ff88','#00d67a','#b6ffd1','#8af0c4'][Math.floor(Math.random()*4)]
-          });
-        }
-        let t=0;
-        function loop(){
-          t++;
-          ctx.clearRect(0,0,c.width,c.height);
-          for(const p of pieces){
-            p.vy += 0.25;
-            p.x += p.vx;
-            p.y += p.vy;
-            ctx.fillStyle = p.c;
-            ctx.beginPath();
-            ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-            ctx.fill();
-          }
-          if(t<100) requestAnimationFrame(loop);
-          else c.remove();
-        }
-        requestAnimationFrame(loop);
-      });
-    })();
+  // autoplay
+  let t = setInterval(()=> go(idx+1), 5000);
 
-    /* accessibility */
-    document.addEventListener('keyup', function(e){
-      if(e.key==='Tab') document.documentElement.style.scrollBehavior='smooth';
+  slidesEl.addEventListener('mouseenter', ()=> clearInterval(t));
+  slidesEl.addEventListener('mouseleave', ()=> t = setInterval(()=> go(idx+1), 5000));
+
+  // simple swipe for touch
+  let startX = 0, endX = 0;
+  slidesEl.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+  slidesEl.addEventListener('touchmove', e => { endX = e.touches[0].clientX; });
+  slidesEl.addEventListener('touchend', () => {
+    const diff = endX - startX;
+    if(Math.abs(diff) > 40){
+      if(diff < 0) go(idx+1); else go(idx-1);
+    }
+    startX = endX = 0;
+  });
+})();
+
+/* gallery lightbox */
+(function gallery(){
+  const cards = document.querySelectorAll('.card');
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const close = document.getElementById('lb-close');
+
+  function open(src, alt){
+    lbImg.src = src; lbImg.alt = alt || 'Preview';
+    lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLB(){
+    lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
+    lbImg.src = ''; document.body.style.overflow = '';
+  }
+  cards.forEach(c=>{
+    c.addEventListener('click', ()=> open(c.dataset.src, c.querySelector('img').alt));
+    c.addEventListener('keypress', e => { if(e.key === 'Enter') open(c.dataset.src, c.querySelector('img').alt) });
+  });
+  close.addEventListener('click', closeLB);
+  lb.addEventListener('click', e => { if(e.target === lb) closeLB(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLB(); });
+})();
+
+/* tilt effect (light) */
+(function tilt(){
+  const imgs = document.querySelectorAll('.mock img, .phone-screens img, .card img');
+  imgs.forEach(img=>{
+    img.style.transition = 'transform .18s ease, box-shadow .18s ease';
+    img.addEventListener('mousemove', (ev)=>{
+      const rect = img.getBoundingClientRect();
+      const x = (ev.clientX - rect.left) / rect.width - 0.5;
+      const y = (ev.clientY - rect.top) / rect.height - 0.5;
+      img.style.transform = `perspective(700px) rotateX(${ -y*5 }deg) rotateY(${ x*5 }deg)`;
+      img.style.boxShadow = `${ -x*10 }px ${ y*10 }px 30px rgba(0,0,0,0.55)`;
     });
-  </script>
+    img.addEventListener('mouseleave', ()=>{ img.style.transform = ''; img.style.boxShadow = ''; });
+  });
+})();
+
+/* confetti on download (tiny) */
+(function confetti(){
+  const dl = document.querySelector('a[href="plantafix.apk"]');
+  if(!dl) return;
+  dl.addEventListener('click', ()=>{
+    const c = document.createElement('canvas');
+    c.width = innerWidth; c.height = innerHeight;
+    c.style.position = 'fixed'; c.style.left = 0; c.style.top = 0; c.style.zIndex = 9999;
+    document.body.appendChild(c);
+    const ctx = c.getContext('2d');
+    const pieces = [];
+    for(let i=0;i<40;i++){
+      pieces.push({x: innerWidth/2 + (Math.random()-0.5)*200, y: innerHeight/2 + (Math.random()-0.5)*80, vx:(Math.random()-0.5)*5, vy:-6-Math.random()*5, r:3+Math.random()*5, c: ['#00ff88','#00d67a','#b6ffd1'][Math.floor(Math.random()*3)]});
+    }
+    let t=0;
+    function loop(){
+      t++;
+      ctx.clearRect(0,0,c.width,c.height);
+      for(const p of pieces){
+        p.vy += 0.25; p.x += p.vx; p.y += p.vy;
+        ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+      }
+      if(t<80) requestAnimationFrame(loop); else c.remove();
+    }
+    requestAnimationFrame(loop);
+  });
+})();
+
+/* accessibility: show menu on resize if desktop */
+window.addEventListener('resize', ()=> {
+  const menu = document.querySelector('.menu');
+  if(window.innerWidth > 720) menu.style.display = 'flex';
+});
+</script>
 </body>
 </html>
 
